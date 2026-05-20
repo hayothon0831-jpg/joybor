@@ -6,19 +6,22 @@
     <title>Joybor — Aqlli Turargoh</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #111827;
-            --border-color: #1f2937;
+            --bg-dark: #0a0e17;
+            --monitor-bg: #121824;
+            --phone-bg: #090d16;
+            --neon-blue: #00f2fe;
+            --neon-green: #00f5a0;
+            --card-bg: #1a2333;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
-            --green: #10b981;
-            --blue: #3b82f6;
-            --red: #ef4444;
+            --green-spot: #10b981;
+            --red-spot: #ef4444;
+            --blue-btn: #3b82f6;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             margin: 0;
             padding: 0;
@@ -29,203 +32,423 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1100px;
+        /* Общая обертка имитирует рабочее место с монитором */
+        .workspace {
             width: 100%;
+            max-width: 1200px;
             padding: 40px 20px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
             align-items: center;
         }
 
         @media (max-width: 900px) {
-            .container {
+            .workspace {
                 grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .phone-wrapper {
-                order: -1;
             }
         }
 
-        .info-side {
-            text-align: left;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 0 0 15px 0;
-            background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 40px;
-        }
-
-        .features {
+        /* Стилизация Большого Монитора (Левая часть) */
+        .monitor-frame {
+            background-color: var(--monitor-bg);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+            position: relative;
+            border: 1px solid #222f47;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 30px;
         }
 
-        .feat-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .feat-card:hover, .feat-card.active {
-            border-color: #374151;
-            transform: scale(1.02);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
-        .feat-card::before {
+        /* Неоновые трубки/рамки по бокам монитора из картинки */
+        .monitor-frame::before, .monitor-frame::after {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            border-radius: 16px 0 0 16px;
-            transition: background 0.3s;
+            top: 15%;
+            height: 70%;
+            width: 6px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--neon-blue);
         }
+        .monitor-frame::before { left: -3px; background: var(--neon-blue); }
+        .monitor-frame::after { right: -3px; background: var(--neon-blue); }
 
-        .feat-card.find:hover::before, .feat-card.find.active::before { background: var(--green); }
-        .feat-card.claim:hover::before, .feat-card.claim.active::before { background: var(--blue); }
-        .feat-card.block:hover::before, .feat-card.block.active::before { background: var(--red); }
-
-        .feat-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .feat-card.find .feat-title { color: var(--green); }
-        .feat-card.claim .feat-title { color: var(--blue); }
-        .feat-card.block .feat-title { color: var(--red); }
-
-        .feat-desc {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .phone-wrapper {
+        /* Верхняя панель в мониторе */
+        .monitor-header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #222f47;
+            padding-bottom: 20px;
         }
 
-        .phone {
-            width: 300px;
-            height: 600px;
-            background: #000000;
-            border: 12px solid #1f2937;
-            border-radius: 45px;
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.2);
-            position: relative;
-            overflow: hidden;
+        .brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .brand span {
+            color: var(--neon-green);
+        }
+
+        .sys-status {
+            background: rgba(0, 245, 160, 0.1);
+            border: 1px solid rgba(0, 245, 160, 0.3);
+            color: var(--neon-green);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Левые карточки шагов */
+        .steps-container {
             display: flex;
             flex-direction: column;
+            gap: 16px;
         }
 
-        .notch {
+        .step-card {
+            background: var(--card-bg);
+            border: 1px solid #222f47;
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card.active {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 245, 160, 0.15);
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-card.one .step-title { color: var(--neon-green); }
+        .step-card.two .step-title { color: #3b82f6; }
+        .step-card.three .step-title { color: #ef4444; }
+
+        .step-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .b2b-pill {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            align-self: flex-start;
+        }
+
+        /* ТЕЛЕФОН (Правая часть — в точности как на картинке) */
+        .phone-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .iphone {
+            width: 320px;
+            height: 640px;
+            background: var(--phone-bg);
+            border: 12px solid #1c2533;
+            border-radius: 48px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(59, 130, 246, 0.15);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Островок сверху экрана */
+        .island {
             width: 110px;
             height: 25px;
-            background: #1f2937;
+            background: #1c2533;
             border-radius: 20px;
-            margin: 15px auto 0 auto;
             position: absolute;
+            top: 12px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
         }
 
-        .app-screen {
-            padding: 60px 20px 20px 20px;
+        /* Экран самого приложения */
+        .screen {
+            padding: 50px 16px 20px 16px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
-            transition: all 0.5s ease;
         }
 
-        .app-header {
+        .phone-header {
             text-align: center;
+            margin-bottom: 10px;
         }
 
-        .app-logo {
-            font-size: 1.4rem;
-            font-weight: 800;
+        .phone-title {
+            font-size: 1.1rem;
+            font-weight: 700;
             color: #fff;
         }
 
-        .app-status {
+        .phone-sub {
             font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-            transition: color 0.3s;
+            color: var(--neon-green);
+            margin-top: 2px;
         }
 
-        .mock-map {
-            height: 200px;
-            background: #111827;
-            border: 1px solid var(--border-color);
+        /* Вертикальная интерактивная карта парковки */
+        .parking-area {
+            background: #0f1624;
+            border: 1px solid #1e293b;
             border-radius: 20px;
-            margin: 20px 0;
+            flex-grow: 1;
+            margin: 10px 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
             position: relative;
-            overflow: hidden;
+            justify-content: center;
+        }
+
+        /* Сетка парковочных мест (две вертикальные колонки как на картинке) */
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        /* Проезд посередине между рядами */
+        .slots-grid div:nth-child(4n-2) { margin-right: 15px; }
+        .slots-grid div:nth-child(4n-1) { margin-left: 15px; }
+
+        .mini-spot {
+            height: 32px;
+            border-radius: 6px;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .map-grid {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
+        .mini-spot.busy {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--red-spot);
+            color: var(--red-spot);
         }
 
-        .parking-spot {
-            width: 55px;
-            height: 55px;
-            border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .mini-spot.free {
+            background: rgba(0, 245, 160, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 5px rgba(0, 245, 160, 0.2);
+        }
+
+        .mini-spot.picked {
+            background: var(--blue-btn) !important;
+            border-color: #fff !important;
+            color: #fff !important;
+            box-shadow: 0 0 12px var(--blue-btn);
+        }
+
+        /* Всплывающее всплывающее облачко-подсказка из твоего макета */
+        .tooltip-box {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        /* Нижняя неоновая кнопка как на картинке */
+        .action-button {
+            background: linear-gradient(90deg, #00f5a0 0%, #00f2fe 100%);
+            color: #05070c;
+            border: none;
+            padding: 15px;
+            border-radius: 14px;
             font-weight: 800;
-            font-size: 1.2rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(16, 185, 129, 0.2);
-            border: 2px solid var(--green);
-            color: var(--green);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-            animation: pulse-green 2s infinite;
-            z-index: 2;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 245, 160, 0.4);
+            transition: transform 0.2s;
         }
 
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        .action-button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="workspace">
+        
+        <div class="monitor-frame">
+            <div class="monitor-header">
+                <div class="brand">📍 Joybor</div>
+                <div class="sys-status">● Datchiklar ulangan • Toshkent</div>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card one active">
+                    <div class="step-title">🟢 1. Topish (Find)</div>
+                    <div class="step-desc">Real-vaqt rejimida bo'sh joylarni xaritada ko'rish.</div>
+                </div>
+
+                <div class="step-card two">
+                    <div class="step-title">🔵 2. Band qilish (Claim)</div>
+                    <div class="step-desc">Joyni yetib kelmasdan oldin bir bosishda bron qiling.</div>
+                </div>
+
+                <div class="step-card three">
+                    <div class="step-title">🔴 3. To'sish (Block)</div>
+                    <div class="step-desc">Joy to'sildi, uni sizdan boshqa hech kim egallay olmaydi.</div>
+                </div>
+            </div>
+
+            <div class="b2b-pill">B2B • Smart City & GovTech Loyihasi</div>
+        </div>
+
+        <div class="phone-container">
+            <div class="iphone">
+                <div class="island"></div>
+                <div class="screen">
+                    
+                    <div class="phone-header">
+                        <div class="phone-title" id="pTitle">Jonli Xarita</div>
+                        <div class="phone-sub" id="pSub">21 Bo'sh Joy Mavjud</div>
+                    </div>
+
+                    <div class="parking-area">
+                        <div class="slots-grid">
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'A2')">P</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'A3')">P</div>
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'B2')">P</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'B3')">P</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'B4')">P</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'C1')">P</div>
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'C4')">P</div>
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'D2')">P</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'D3')">P</div>
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'E1')">P</div>
+                            <div class="mini-spot busy">❌</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'E3')">P</div>
+                            <div class="mini-spot free" onclick="clickSlot(this, 'E4')">P</div>
+                        </div>
+                    </div>
+
+                    <div class="tooltip-box" id="infoTooltip">
+                        Bo'sh joylar yashil rangda!
+                    </div>
+
+                    <button class="action-button" id="mainActionBtn" onclick="btnAction()">
+                        Joyni band qilish (Claim)
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSelected = null;
+        let selectedName = "";
+        let booked = false;
+
+        function clickSlot(element, name) {
+            if (booked) return;
+
+            if (currentSelected === element) {
+                element.classList.remove('picked');
+                currentSelected = null;
+                document.getElementById('infoTooltip').innerText = "Bo'sh joylar yashil rangda!";
+                document.getElementById('pSub').innerText = "21 Bo'sh Joy Mavjud";
+                return;
+            }
+
+            if (currentSelected) {
+                currentSelected.classList.remove('picked');
+            }
+
+            currentSelected = element;
+            selectedName = name;
+            element.classList.add('picked');
+            document.getElementById('infoTooltip').innerText = name + " joyi tanlandi! ⚡";
+            document.getElementById('pSub').innerText = name + " joyi tanlandi";
         }
 
-        @keyframes pulse-blue {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(59, 130, 246,
+        function btnAction() {
+            const tooltip = document.getElementById('infoTooltip');
+            const btn = document.getElementById('mainActionBtn');
+            const sub = document.getElementById('pSub');
+
+            if (!currentSelected && !booked) {
+                tooltip.innerText = "Iltimos, oldin yashil joyni bosing!";
+                return;
+            }
+
+            if (!booked) {
+                booked = true;
+                tooltip.innerHTML = "Joy muvaffaqiyatli to'sildi! 🔒";
+                tooltip.style.borderColor = "#ef4444";
+                sub.innerText = selectedName + " band qilindi";
+                
+                currentSelected.className = "mini-spot busy";
+                currentSelected.innerText = "🔒";
+                
+                btn.innerText = "Turargohdan chiqish (Reset)";
+                btn.style.background = "linear-gradient(90deg, #ef4444 0%, #cc2b2b 100%)";
+                btn.style.boxShadow = "0 4px 20px rgba(239, 68, 68, 0.4)";
+            } else {
+                booked = false;
+                currentSelected.className = "mini-spot free";
+                currentSelected.innerText = "P";
+                currentSelected = null;
+                
+                tooltip.innerText = "Bo'sh joylar yashil rangda!";
+                tooltip.style.borderColor = "#334155";
+                sub.innerText = "21 Bo'sh Joy Mavjud";
+                
+                btn.innerText = "Joyni band qilish (Claim)";
+                btn.style.background = "linear-gradient(90deg, #00f5a0 0%, #00f2fe 100%)";
+                btn.style.boxShadow = "0 4px 20px rgba(0, 245, 160, 0.4)";
+            }
+        }
+    </script>
+</body>
+</html>
