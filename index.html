@@ -49,7 +49,6 @@
             }
         }
 
-        /* Левая колонка: Текст и Интерактив */
         .info-side {
             text-align: left;
         }
@@ -86,7 +85,7 @@
             position: relative;
         }
 
-        .feat-card:hover {
+        .feat-card:hover, .feat-card.active {
             border-color: #374151;
             transform: scale(1.02);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
@@ -103,17 +102,14 @@
             transition: background 0.3s;
         }
 
-        .feat-card.find:hover::before { background: var(--green); }
-        .feat-card.claim:hover::before { background: var(--blue); }
-        .feat-card.block:hover::before { background: var(--red); }
+        .feat-card.find:hover::before, .feat-card.find.active::before { background: var(--green); }
+        .feat-card.claim:hover::before, .feat-card.claim.active::before { background: var(--blue); }
+        .feat-card.block:hover::before, .feat-card.block.active::before { background: var(--red); }
 
         .feat-title {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .feat-card.find .feat-title { color: var(--green); }
@@ -126,7 +122,6 @@
             line-height: 1.4;
         }
 
-        /* Правая колонка: Имитация смартфона */
         .phone-wrapper {
             display: flex;
             justify-content: center;
@@ -146,7 +141,6 @@
             flex-direction: column;
         }
 
-        /* Динамик/Камера сверху (Dynamic Island style) */
         .notch {
             width: 110px;
             height: 25px;
@@ -159,7 +153,6 @@
             z-index: 10;
         }
 
-        /* Экран приложения */
         .app-screen {
             padding: 60px 20px 20px 20px;
             flex-grow: 1;
@@ -167,6 +160,7 @@
             flex-direction: column;
             justify-content: space-between;
             background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+            transition: all 0.5s ease;
         }
 
         .app-header {
@@ -183,9 +177,9 @@
             font-size: 0.8rem;
             color: var(--text-muted);
             margin-top: 4px;
+            transition: color 0.3s;
         }
 
-        /* Интерактивная карта-заглушка */
         .mock-map {
             height: 200px;
             background: #111827;
@@ -208,108 +202,30 @@
             background-size: 20px 20px;
         }
 
-        /* Анимированная парковочная точка */
         .parking-spot {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 800;
-            font-size: 1.1rem;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-            animation: pulse-green 2s infinite;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(16, 185, 129, 0.2);
             border: 2px solid var(--green);
             color: var(--green);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            animation: pulse-green 2s infinite;
+            z-index: 2;
         }
 
         @keyframes pulse-green {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        /* Кнопка действия внутри телефона */
-        .app-btn {
-            background: var(--blue);
-            color: #fff;
-            border: none;
-            padding: 14px;
-            border-radius: 16px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-            text-align: center;
-        }
-
-        /* Подвал */
-        .b2b-badge {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--blue);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        
-        <div class="info-side">
-            <h1>Joybor</h1>
-            <p class="tagline">Toshkent shahri uchun mo'ljallangan, datchiklar va aqlli tizimlar yordamida bo'sh turargoh joylarini real vaqt rejimida boshqarish platformasi.</p>
-            
-            <div class="features">
-                <div class="feat-card find">
-                    <div class="feat-title">🟢 1. Topish (Find)</div>
-                    <div class="feat-desc">Shahardagi barcha bo'sh joylarni 100% aniqlik bilan jonli xaritada ko'rasiz. Ortqacha vaqt sarflash butunlay tugatiladi.</div>
-                </div>
-
-                <div class="feat-card claim">
-                    <div class="feat-title">🔵 2. Band qilish (Claim)</div>
-                    <div class="feat-desc">Manzilga yetib kelishdan oldin o'zingizga yoqqan bo'sh joyni ilova orqali bir soniyada bron qilib qo'ying.</div>
-                </div>
-
-                <div class="feat-card block">
-                    <div class="feat-title">🔴 3. To'sish (Block)</div>
-                    <div class="feat-desc">Siz joyni band qilganingizdan so'ng, tizim uni avtomatik yopadi va boshqa haydovchilar u joyni egallay olmaydi.</div>
-                </div>
-            </div>
-
-            <div class="b2b-badge">Smart City & GovTech Loyihasi</div>
-        </div>
-
-        <div class="phone-wrapper">
-            <div class="phone">
-                <div class="notch"></div>
-                <div class="app-screen">
-                    
-                    <div class="app-header">
-                        <div class="app-logo">Joybor App</div>
-                        <div class="app-status">Datchiklar ulangan • Toshkent</div>
-                    </div>
-
-                    <div class="mock-map">
-                        <div class="map-grid"></div>
-                        <div class="parking-spot">P</div>
-                    </div>
-
-                    <div class="app-btn">
-                        Joyni band qilish (Claim)
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</body>
-</html>
+        @keyframes pulse-blue {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(59, 130, 246,
