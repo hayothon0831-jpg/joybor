@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpotFinder — Real-Time Smart Parking</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-color: #58a6ff;
+            --text-color: #c9d1d9;
+            --red-alert: #f85149;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #8b949e;
+            margin-bottom: 40px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            transition: transform 0.2s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .step-title.block {
+            color: var(--red-alert);
+        }
+
+        .badge {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            float: right;
+        }
+
+        .badge.red {
+            background: rgba(248, 81, 73, 0.1);
+            color: var(--red-alert);
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #8b949e;
+            border-top: 1px solid #30363d;
+            padding-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>[JoyBor]</h1>
+        <p class="tagline">Mobile app connecting directly with parking systems and smart city sensors to show open parking spots in real time.</p>
+
+        <div class="steps">
+            <div class="step-card">
+                <span class="badge">Step 1</span>
+                <div class="step-title">Find</div>
+                <div>See real-time open spots on the map with 100% accurate data.</div>
+            </div>
+
+            <div class="step-card">
+                <span class="badge">Step 2</span>
+                <div class="step-title">Claim</div>
+                <div>Tap to book your spot instantly before you arrive.</div>
+            </div>
+
+            <div class="step-card">
+                <span class="badge red">Step 3</span>
+                <div class="step-title block">Block</div>
+                <div>The spot turns red for everyone else so nobody can take it from you.</div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 [JoyBor] Project. 
+        </footer>
+    </div>
+
+</body>
+</html>
