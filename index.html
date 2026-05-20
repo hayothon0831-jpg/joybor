@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpotFinder — Real-Time Smart Parking</title>
+    <title>Joybor — Aqlli Turargoh Tizimi</title>
     <style>
         :root {
             --bg-color: #0d1117;
             --card-bg: #161b22;
-            --accent-color: #58a6ff;
+            --accent-color: #2ea44f; /* Яркий зеленый для свежего вида */
             --text-color: #c9d1d9;
             --red-alert: #f85149;
+            --blue-accent: #58a6ff;
         }
 
         body {
@@ -22,66 +23,83 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
         }
 
         .container {
-            max-width: 600px;
-            padding: 40px 20px;
+            max-width: 700px;
+            padding: 60px 20px;
+            text-align: center;
         }
 
         h1 {
             color: #ffffff;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 10px;
+            letter-spacing: -1px;
         }
 
         .tagline {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #8b949e;
             margin-bottom: 40px;
+            line-height: 1.6;
         }
 
-        .steps {
+        h2 {
+            color: #ffffff;
+            font-size: 1.6rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: left;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 8px;
+        }
+
+        .grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        .step-card {
+        .card {
             background: var(--card-bg);
             border: 1px solid #30363d;
             border-radius: 12px;
-            padding: 20px;
+            padding: 24px;
             text-align: left;
-            transition: transform 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
         }
 
-        .step-card:hover {
+        .card:hover {
             transform: translateY(-2px);
+            border-color: #444c56;
         }
 
-        .step-title {
-            font-size: 1.2rem;
+        .card-title {
+            font-size: 1.25rem;
             font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 8px;
+            color: var(--blue-accent);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .step-title.block {
+        .card-title.red {
             color: var(--red-alert);
+        }
+
+        .card-title.green {
+            color: var(--accent-color);
         }
 
         .badge {
             background: rgba(88, 166, 255, 0.1);
-            color: var(--accent-color);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            float: right;
+            color: var(--blue-accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
         }
 
         .badge.red {
@@ -89,8 +107,28 @@
             color: var(--red-alert);
         }
 
+        .badge.green {
+            background: rgba(46, 164, 79, 0.1);
+            color: var(--accent-color);
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, #1f242c, #161b22);
+            border: 1px dashed var(--blue-accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .stats-box p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
         footer {
-            margin-top: 20px;
+            margin-top: 60px;
             font-size: 0.85rem;
             color: #8b949e;
             border-top: 1px solid #30363d;
@@ -102,31 +140,61 @@
 <body>
 
     <div class="container">
-        <h1>[JoyBor]</h1>
-        <p class="tagline">Mobile app connecting directly with parking systems and smart city sensors to show open parking spots in real time.</p>
+        <h1>Joybor</h1>
+        <p class="tagline">Toshkent shahridagi turargoh tizimlari va aqlli datchiklar bilan integratsiya qilingan holda, bo'sh joylarni real vaqt rejimida ko'rsatuvchi va bron qiluvchi mobil ilova.</p>
 
-        <div class="steps">
-            <div class="step-card">
-                <span class="badge">Step 1</span>
-                <div class="step-title">Find</div>
-                <div>See real-time open spots on the map with 100% accurate data.</div>
+        <h2>Haydovchilar uchun imkoniyatlar</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-title">
+                    <span>1. Topish (Find)</span>
+                    <span class="badge">Real-vaqt</span>
+                </div>
+                <div>Xaritada 100% aniqlik bilan bo'sh joylarni ko'rish va tirbandlikning oldini olish.</div>
             </div>
 
-            <div class="step-card">
-                <span class="badge">Step 2</span>
-                <div class="step-title">Claim</div>
-                <div>Tap to book your spot instantly before you arrive.</div>
+            <div class="card">
+                <div class="card-title">
+                    <span>2. Band qilish (Claim)</span>
+                    <span class="badge">Tezkor</span>
+                </div>
+                <div>Turargohga yetib kelmasdan oldin birgina tugma orqali joyni o'zingizga band qilish.</div>
             </div>
 
-            <div class="step-card">
-                <span class="badge red">Step 3</span>
-                <div class="step-title block">Block</div>
-                <div>The spot turns red for everyone else so nobody can take it from you.</div>
+            <div class="card">
+                <div class="card-title red">
+                    <span>3. To'sish (Block)</span>
+                    <span class="badge red">Yopiq</span>
+                </div>
+                <div>Siz band qilgan joy boshqa haydovchilar uchun qizil rangga aylanadi va uni hech kim egallay olmaydi.</div>
             </div>
         </div>
 
+        <h2>Biznes va Shahar uchun afzalliklari</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-title green">
+                    <span>Turargoh egalari uchun</span>
+                    <span class="badge green">B2B</span>
+                </div>
+                <div>Bo'sh joylarni optimallashtirish orqali daromadni oshirish va avtomatlashtirilgan boshqaruv tizimi.</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title green">
+                    <span>Smart City (GovTech)</span>
+                    <span class="badge green">Ekologiya</span>
+                </div>
+                <div>Ko'chalarda joy qidirib yuradigan mashinalar oqimini kamaytirish orqali tirbandlik va zararli gazlarni qisqartirish.</div>
+            </div>
+        </div>
+
+        <div class="stats-box">
+            <p><strong>Pilot loyiha bosqichi:</strong> MVP versiya + Toshkentdagi 1-2 ta xususiy turargoh bilan integratsiya testi.</p>
+        </div>
+
         <footer>
-            &copy; 2026 [JoyBor] Project. 
+            &copy; 2026 Joybor Loyihasi. IT Park Uzbekistan inkubatsiya dasturi uchun maxsus tayyorlandi.
         </footer>
     </div>
 
